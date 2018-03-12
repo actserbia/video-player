@@ -24,8 +24,8 @@ module.exports = {
     publicPath: path.resolve(__dirname, '/dist/'),
   },
   watchOptions: {
-  poll: true
-},
+    poll: true
+  },
   module: {
     rules: [
       {
@@ -50,6 +50,14 @@ module.exports = {
           use: ['css-loader', 'sass-loader']
         })
       },
-    ]
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      },
+    ],
+
   },
 };

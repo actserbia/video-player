@@ -5,6 +5,9 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "babel-core": "v7.0.0-beta.40",
+    "babel-loader": "8.0.0-beta.2",
+    "babel-preset-es2015": "^6.24.1",
     "clean-webpack-plugin": "^0.1.18",
     "css-loader": "^0.28.10",
     "extract-text-webpack-plugin": "v4.0.0-beta.0",

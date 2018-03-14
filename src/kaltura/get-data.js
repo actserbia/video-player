@@ -18,7 +18,7 @@ export default function getSources(entryId){
     //https://knowledge.kaltura.com/kaltura-thumbnail-api
     //http://cfvod.kaltura.com/p/2376541/sp/237654100/thumbnail/entry_id/0_2wr8pq3i/version/100002/width/100/vid_slices/100
 
-    var url = 'https://cdnapi.kaltura.com/api_v3/?service=multirequest&format=9' +
+    var url = 'http://cdnapi.kaltura.com/api_v3/?service=multirequest&format=9' +
     '&1:service=session&1:action=startWidgetSession&1:widgetId=' + wid +
     '&2:service=flavorasset&2:action=getByEntryId&2:ks={1:result:ks}&2:entryId=' + entryId +
     '&3:service=baseEntry&3:action=get&3:ks={1:result:ks}&3:entryId=' + entryId +

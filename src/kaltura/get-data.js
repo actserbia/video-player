@@ -7,7 +7,7 @@ export default function getSources(entryId){
     var callback = 'sourcesReady';
 
     window["kalturaJspCallback_"+entryId] = function(data){
-      resolve(data);
+      resolve(data, entryId);
     };
 
     //https://searchcode.com/codesearch/view/44048077/

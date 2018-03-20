@@ -7,7 +7,7 @@ export default function linkVideo(flavors){
 
     switch (sw) {
       case 'webm-v_vp8' :
-        flavor.mime = 'video/webm; codecs="vp8,vorbis"'
+        flavor.mime = 'video/webm; codecs="vp8, vorbis"'
         break;
       case 'mp4-avc1' :
         flavor.mime = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
@@ -22,11 +22,11 @@ export default function linkVideo(flavors){
 
 
     if (window.MediaSource && MediaSource.isTypeSupported(flavor.mime)) {
-      var vidElement = document.createElement("video");
+      let vidElement = document.createElement("video");
       vidElement.controls = true;
       document.getElementsByClassName('container')[0].insertAdjacentHTML( 'beforeend', flavor.mime );
       document.getElementsByClassName('container')[0].appendChild(vidElement);
-      var mediaSource = new MediaSource();
+      let mediaSource = new MediaSource();
       vidElement.src = URL.createObjectURL(mediaSource);
       mediaSource.addEventListener(  'sourceopen', function(e){
         sourceOpen({e:e, flavor: flavor, vEl: vidElement})
@@ -40,8 +40,9 @@ export default function linkVideo(flavors){
 
 
 
-  var sourceBuffer;
+
   function sourceOpen(data) {
+    var sourceBuffer;
     var mime = data.flavor.mime;
     var videoSrc = data.flavor.url;
     var vidElement = data.vEl;
@@ -53,7 +54,6 @@ export default function linkVideo(flavors){
     var videoUrl = videoSrc;
     fetch(videoUrl)
       .then(function(response) {
-
         return response.arrayBuffer();
       })
       .then(function(arrayBuffer) {

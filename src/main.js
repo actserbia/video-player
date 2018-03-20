@@ -10,8 +10,13 @@ import linkVideo from './MSE/mseApi.js'
 
 
 const resolveKaltura = function(data, entryId) {
+  console.log('resolveKalture', data[1][0].videoCodecId);
   console.log('resolveKalture', data);
-  linkVideo(data[2].dataUrl);
+  data[1].map(videoFlavor => {
+    linkVideo(videoFlavor.url, videoFlavor.fileExt, videoFlavor.videoCodecId);
+    console.log( videoFlavor.fileExt, videoFlavor.videoCodecId);
+  });
+  // linkVideo(data[1][0].url, data[1][0].fileExt, data[1][0].videoCodecId);
 }
 
 // ITERATE PAGE VIDEOS

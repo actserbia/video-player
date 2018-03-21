@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack --config webpack.config.js"
+    "start": "webpack-dev-server --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.build.js"
   },
   "dependencies": {
     "babel-loader": "^7.1.4"

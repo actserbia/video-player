@@ -1,6 +1,9 @@
 html, body {
   margin: 0;
-  box-sizing: boder-box;
+
+}
+* {
+  box-sizing: border-box;
 }
 
 .container {
@@ -9,5 +12,18 @@ html, body {
   margin: 0 auto;
   video {
     width: 100%;
+  }
+}
+.row {
+  postition: relative;
+  .col-half {
+    width: 50%;
+    float: left;
+    padding: 10px;
+  }
+  &:after {
+    display: table;
+    content: " ";
+    clear: both;
   }
 }

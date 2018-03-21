@@ -11,8 +11,8 @@ import linkVideo from './MSE/mseApi.js'
 
 const resolveKaltura = function(data, entryId) {
   //console.log('resolveKalture', data[1][0].videoCodecId);
-  console.log('resolveKalture',  data);
-  linkVideo(data[1]);
+  //console.log('resolveKalture',  data);
+  //linkVideo(data[1]);
 
 
 

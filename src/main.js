@@ -17,8 +17,8 @@ const resolveKaltura = (data) => {
 }
 
 const resolveMashina = (data, video) => {
-  console.log(data);
-  console.log(video);
+  // console.log(data);
+  // console.log(video);
 }
 
 // ITERATE PAGE VIDEOS

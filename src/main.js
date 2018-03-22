@@ -5,16 +5,22 @@ babel-polyfill, core-js
 import style from './main.scss'
 import devStyle from './layout.scss.dev'
 
-import getKalturaData from './kaltura/get-data.js'
+import {getKalturaData} from './kaltura/kaltura.js'
 import linkVideo from './MSE/mseApi.js'
 
+const resolveKaltura = (data) => {
+console.log(data);
+  [...data.data[1]].forEach(function(flavor){
+    console.log(flavor);
+    //console.log(data.videoDom);
+    data.videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="video/'+flavor.containerFormat+'">');
+  })
+}
 
-const resolveKaltura = function(data, entryId) {
+const resolveMashina = () => {
   //console.log('resolveKalture', data[1][0].videoCodecId);
   //console.log('resolveKalture',  data);
   //linkVideo(data[1]);
-
-
 
   //data[1].map(videoFlavor => {
   //  linkVideo(videoFlavor.url, videoFlavor.fileExt, videoFlavor.videoCodecId);
@@ -25,11 +31,14 @@ const resolveKaltura = function(data, entryId) {
 
 // ITERATE PAGE VIDEOS
 let htmlVideos = document.getElementsByTagName('video');
-getKalturaData('0_gq6w4m8p').then(resolveKaltura);
-/*
+
 [...htmlVideos].forEach(function(video, index){
-  if ( video.classList.contains('video-player-kaltura') ){
-    getKalturaData(video.dataset.vid).then(resolveKaltura);//dataset
-  };
+  switch (video.dataset.vtype) {
+    case "kaltura" :
+      getKalturaData(video.dataset.vid, video).then(resolveKaltura);
+      break;
+    case "mashina" :
+      resolveMashina();
+      break;
+  }
 });
-*/

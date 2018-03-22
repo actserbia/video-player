@@ -1,10 +1,9 @@
-export default function getSources(entryId){
+export function getKalturaData(entryId, videoDom){
 
   return new Promise(function(resolve, reject){
 
     var wid = '_2376541';
     var partnerId = 2376541;
-    var callback = 'sourcesReady';
 
     window["kalturaJspCallback_"+entryId] = function(data){
       // http://cdnapi.kaltura.com/p/2376541/sp/237654100/playManifest/entryId/0_gq6w4m8p/flavorId/0_nlpk46wr/format/url/protocol/http/a.mp4
@@ -14,7 +13,7 @@ export default function getSources(entryId){
         flavor.url = "http://cdnapi.kaltura.com/p/"+ partnerId +"/sp/"+ partnerId +"00/playManifest/entryId/"+ entryId +"/flavorId/"+ flavor.id +"/format/url/protocol/http/a." + flavor.fileExt;
         //console.log(flavor);
       })
-      resolve(data, entryId);
+      resolve({data: data, videoDom: videoDom});
     };
 
     //https://searchcode.com/codesearch/view/44048077/

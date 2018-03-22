@@ -1,7 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+//const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new ExtractTextPlugin("../dev.css"),
+    //new ExtractTextPlugin("../dev.css"),
     //new webpack.HotModuleReplacementPlugin()
   ],
   "devServer": {

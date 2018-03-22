@@ -1,31 +1,27 @@
-export default function linkVideo(flavors){
+export default function linkVideo(flavors, video){
 
   //videoSrc, ext, codac
   flavors.forEach( flavor => {
-    let sw = flavor.fileExt+"-"+flavor.videoCodecId;
-    console.log(sw)
-
-    switch (sw) {
-      case 'webm-v_vp8' :
-        flavor.mime = 'video/webm; codecs="vp8, vorbis"'
-        break;
-      case 'mp4-avc1' :
-        flavor.mime = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-        break;
-      case '3gp-mpeg-4 visual' :
-        flavor.mime = 'video/3gpp; codecs="mp4v.20.8, samr"'
-        break;
-      case 'mp4-undefined' :
-        flavor.mime = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-        break;
-    }
+    let btn = document.createElement('button');
+    btn.innerHTML = flavor.vid+flavor.mime;
+    btn.addEventListener("click", function(){
+      tryFlavor(flavor, video)
+    });
+    // btn.onclick = tryFlavor(flavor, video)
+    video.insertAdjacentElement( 'afterend', btn );
+    // let sw = flavor.fileExt+"-"+flavor.videoCodecId;
+    // console.log(sw)
 
 
+
+
+  });
+  function tryFlavor(flavor, video){
     if (window.MediaSource && MediaSource.isTypeSupported(flavor.mime)) {
-      let vidElement = document.createElement("video");
+      let vidElement = video;
       vidElement.controls = true;
       document.getElementsByClassName('container')[0].insertAdjacentHTML( 'beforeend', flavor.mime );
-      document.getElementsByClassName('container')[0].appendChild(vidElement);
+      // document.getElementsByClassName('container')[0].appendChild(vidElement);
       let mediaSource = new MediaSource();
       vidElement.src = URL.createObjectURL(mediaSource);
       mediaSource.addEventListener(  'sourceopen', function(e){
@@ -35,12 +31,7 @@ export default function linkVideo(flavors){
     } else {
       console.log("The Media Source Extensions API is not supported.")
     }
-  });
-
-
-
-
-
+  }
   function sourceOpen(data) {
     var sourceBuffer;
     var mime = data.flavor.mime;
@@ -57,30 +48,13 @@ export default function linkVideo(flavors){
         return response.arrayBuffer();
       })
       .then(function(arrayBuffer) {
-        console.log(arrayBuffer);
         sourceBuffer.addEventListener('updateend', function(e) {
-          console.log('updateend');
           if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
-            console.log('endofstream');
             mediaSource.endOfStream();
             vidElement.play();
           }
         });
         sourceBuffer.appendBuffer(arrayBuffer);
       });
-  }
-  function endStream(){
-    if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
-      console.log('endofstream');
-      // mediaSource.endOfStream();
-      vidElement.play();
-    } else {
-      console.log("checking");
-      console.log("not updating buffer", !sourceBuffer.updating);
-      console.log("readyState", mediaSource.readyState);
-      setTimeout(function(){
-        endStream();
-      }, 200);
-    }
   }
 }

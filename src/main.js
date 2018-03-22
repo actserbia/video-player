@@ -8,7 +8,7 @@ import devStyle from './layout.scss.dev'
 import {getKalturaData} from './kaltura/kaltura.js'
 import linkVideo from './MSE/mseApi.js'
 
-const MASINA_BASE_URL = "http://sorter.develop/?vid=";
+const MASINA_BASE_URL = "http://vasilie.net/video-sources/?vid=";
 
 const resolveKaltura = (data) => {
   [...data.data[1]].forEach(function(flavor){
@@ -17,8 +17,7 @@ const resolveKaltura = (data) => {
 }
 
 const resolveMashina = (data, video) => {
-  // console.log(data);
-  // console.log(video);
+  linkVideo(data, video);
 }
 
 // ITERATE PAGE VIDEOS

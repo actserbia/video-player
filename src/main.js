@@ -8,25 +8,17 @@ import devStyle from './layout.scss.dev'
 import {getKalturaData} from './kaltura/kaltura.js'
 import linkVideo from './MSE/mseApi.js'
 
+const MASINA_BASE_URL = "http://sorter.develop/?vid=";
+
 const resolveKaltura = (data) => {
-console.log(data);
   [...data.data[1]].forEach(function(flavor){
-    console.log(flavor);
-    //console.log(data.videoDom);
     data.videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="video/'+flavor.containerFormat+'">');
   })
 }
 
-const resolveMashina = () => {
-  //console.log('resolveKalture', data[1][0].videoCodecId);
-  //console.log('resolveKalture',  data);
-  //linkVideo(data[1]);
-
-  //data[1].map(videoFlavor => {
-  //  linkVideo(videoFlavor.url, videoFlavor.fileExt, videoFlavor.videoCodecId);
-    //console.log( videoFlavor.fileExt, videoFlavor.videoCodecId);
-  //});
-  // linkVideo(data[1][0].url, data[1][0].fileExt, data[1][0].videoCodecId);
+const resolveMashina = (data, video) => {
+  console.log(data);
+  console.log(video);
 }
 
 // ITERATE PAGE VIDEOS
@@ -38,7 +30,13 @@ let htmlVideos = document.getElementsByTagName('video');
       getKalturaData(video.dataset.vid, video).then(resolveKaltura);
       break;
     case "mashina" :
-      resolveMashina();
+      fetch(MASINA_BASE_URL + video.dataset.vid )
+        .then(function(response){
+          return response.json();
+        })
+        .then(function(res){
+            resolveMashina(res, video);
+        });
       break;
   }
 });

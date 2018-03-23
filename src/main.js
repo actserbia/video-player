@@ -7,13 +7,18 @@ import devStyle from './layout.scss.dev'
 
 import {getKalturaData} from './kaltura/kaltura.js'
 import linkVideo from './MSE/mseApi.js'
+import playerTemplate from './player-template/player-template.js'
+import imaAd from './IMA-Ads/ima-ad.js'
 
 const MASINA_BASE_URL = "http://vasilie.net/video-sources/?vid=";
 
 const resolveKaltura = (data) => {
+
   [...data.data[1]].forEach(function(flavor){
     data.videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="video/'+flavor.containerFormat+'">');
-  })
+  });
+  const playerWrap = playerTemplate(data.videoDom);
+  imaAd(playerWrap);
 }
 
 const resolveMashina = (data, video) => {

@@ -16,10 +16,19 @@ html, body {
 }
 .row {
   postition: relative;
-  .col-half {
-    width: 50%;
-    float: left;
-    padding: 10px;
+  @media (min-width: 960px) {
+    .col-half {
+      width: 50%;
+      float: left;
+      padding: 10px;
+    }
+  }
+  @media not all and (min-width: 960px) {
+    .col-half {
+      width: 100%;
+      float: left;
+      padding: 10px;
+    }
   }
   &:after {
     display: table;

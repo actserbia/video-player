@@ -20,8 +20,10 @@ module.exports = {
     "contentBase": "./",
     open: true,
     //hot: true,
-    //inline: true,
+    inline: true,
     publicPath: path.resolve(__dirname, '/dist/'),
+    host: '0.0.0.0',
+    //disableHostCheck: true,
   },
   watchOptions: {
     poll: true

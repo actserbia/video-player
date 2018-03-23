@@ -15,7 +15,7 @@ const MASINA_BASE_URL = "http://vasilie.net/video-sources/?vid=";
 const resolveKaltura = (data) => {
 
   [...data.data[1]].forEach(function(flavor){
-    data.videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="video/'+flavor.containerFormat+'">');
+    data.videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="video/'+flavor.fileExt+'">');
   });
   const playerWrap = playerTemplate(data.videoDom);
   imaAd(playerWrap);

@@ -7,6 +7,10 @@ export default function(playerWrap) {
   let playButton;
   let adContainer;
 
+  let linearWidth;
+  let linearHeight;
+  let nonlinearWidth;
+  let nonlinearHeight = 150;
 
   var adsManager;
   var adsLoader;
@@ -19,6 +23,10 @@ export default function(playerWrap) {
     adContainer = playerWrap.getElementsByClassName('ad-container')[0];
     playButton = playerWrap.getElementsByClassName('play')[0];
     playButton.addEventListener('click', playAds);
+
+    linearWidth = nonlinearWidth = videoContent.offsetWidth;
+    linearHeight = videoContent.offsetHeight;
+    console.log(linearWidth, linearHeight)
     setUpIMA();
   }
 
@@ -51,11 +59,11 @@ export default function(playerWrap) {
 
     // Specify the linear and nonlinear slot sizes. This helps the SDK to
     // select the correct creative if multiple are returned.
-    adsRequest.linearAdSlotWidth = 640;
-    adsRequest.linearAdSlotHeight = 400;
+    adsRequest.linearAdSlotWidth = linearWidth;
+    adsRequest.linearAdSlotHeight = linearHeight;
 
-    adsRequest.nonLinearAdSlotWidth = 640;
-    adsRequest.nonLinearAdSlotHeight = 150;
+    adsRequest.nonLinearAdSlotWidth = nonlinearWidth;
+    adsRequest.nonLinearAdSlotHeight = nonlinearHeight;
 
     adsLoader.requestAds(adsRequest);
   }

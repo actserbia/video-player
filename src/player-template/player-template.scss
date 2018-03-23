@@ -16,6 +16,16 @@
     top: 0;
     left: 0;
     z-index: 1;
+    & > div {
+      width: 100%!important;
+      height: 100%!important;
+      iframe {
+        width: 1px!important;
+        min-width: 100%!important;
+        height: 100%!important;
+      }
+    }
+
   }
 
   .control-bar {

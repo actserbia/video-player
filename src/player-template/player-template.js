@@ -10,8 +10,9 @@ export default function(videoDom) {
     <div class='ad-container'></div>
 
     <div class='control-bar'>
-      <a class='play' href="#">play</a>
+      <a class='play' href="#">play add</a>
       <a class='pause' href="#">pause</a>
+      <a class='playv' href="#">play video</a>
     </div>
 
   `;
@@ -20,8 +21,8 @@ export default function(videoDom) {
   wrap.appendChild(videoDom);
 
 
-  wrap.getElementsByClassName('play')[0].addEventListener('click', function(){
-    //videoDom.play();
+  wrap.getElementsByClassName('playv')[0].addEventListener('click', function(){
+    videoDom.play();
   });
   wrap.getElementsByClassName('pause')[0].addEventListener('click', function(){
     videoDom.pause();

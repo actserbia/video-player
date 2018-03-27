@@ -30,7 +30,10 @@ const resolveMashina = (data, video) => {
 }
 
 const resolveShaka = (video, videoSrc) => {
+  const playerWrap = playerTemplate(video);
+
   shaka_app(video, videoSrc);
+  imaAd(playerWrap);
 }
 
 // ITERATE PAGE VIDEOS

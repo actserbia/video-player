@@ -21,7 +21,7 @@ export default function(videoDom) {
 
 
   wrap.getElementsByClassName('play')[0].addEventListener('click', function(){
-    videoDom.play();
+    //videoDom.play();
   });
   wrap.getElementsByClassName('pause')[0].addEventListener('click', function(){
     videoDom.pause();

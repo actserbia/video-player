@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <script src="/node_modules/shaka-player/dist/shaka-player.compiled.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Diwanee Video Player</title>
   <!--link rel="stylesheet" type="text/css" href="dev.css"-->
@@ -53,9 +54,31 @@
       </div>
     </div>
 
-  </div>
+    <div class="row">
 
-</div>
+      <div class="col-half video-w">
+        <h2>video shaka</h2>
+        <video
+          class="video-player"
+          data-vtype="shaka"
+          data-vid='http://vasilie.net/video-sources/dash-test/output/stream.mpd'
+          controls>
+        </video>
+      </div>
+
+      <div class="col-half video-w">
+        <h2>video shaka</h2>
+        <video
+          class="video-player"
+          data-vtype="shaka"
+          data-vid='http://vasilie.net/video-sources/dash-test/output/stream.mpd'
+          controls>
+        </video>
+      </div>
+
+    </div>
+
+  </div>
 
 <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 <script src="./dist/bundle.js"></script>

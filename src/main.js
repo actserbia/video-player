@@ -9,6 +9,8 @@ import {getKalturaData} from './kaltura/kaltura.js'
 import linkVideo from './MSE/mseApi.js'
 import playerTemplate from './player-template/player-template.js'
 import imaAd from './IMA-Ads/ima-ad.js'
+import shaka_app from './shaka-player-app/app.js'
+
 
 const MASINA_BASE_URL = "http://vasilie.net/video-sources/?vid=";
 
@@ -23,6 +25,10 @@ const resolveKaltura = (data) => {
 
 const resolveMashina = (data, video) => {
   linkVideo(data, video);
+}
+
+const resolveShaka = (video, videoSrc) => {
+  shaka_app(video, videoSrc);
 }
 
 // ITERATE PAGE VIDEOS
@@ -41,6 +47,9 @@ let htmlVideos = document.getElementsByTagName('video');
         .then(function(res){
             resolveMashina(res, video);
         });
+      break;
+    case "shaka" :
+      resolveShaka(video, video.dataset.vid);
       break;
   }
 });

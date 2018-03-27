@@ -25,6 +25,8 @@ const resolveKaltura = (data) => {
 
 const resolveMashina = (data, video) => {
   linkVideo(data, video);
+  //const playerWrap = playerTemplate(video);
+  //imaAd(playerWrap);
 }
 
 const resolveShaka = (video, videoSrc) => {

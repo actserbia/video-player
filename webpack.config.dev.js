@@ -16,6 +16,9 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     //new ExtractTextPlugin("../dev.css"),
     //new webpack.HotModuleReplacementPlugin()
+    new webpack.ProvidePlugin({
+      //shaka: 'script-loader!shaka-player/dist/shaka-player.compiled.js'
+    }),
   ],
   "devServer": {
     "contentBase": "./",
@@ -59,7 +62,11 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['es2015']
-        }
+          //presets: ['env']
+          //presets: ['@babel/preset-env']
+          //presets: [['es2015', {modules:false}]]
+        },
+        exclude: [/node_modules\/shaka-player/]
       },
     ],
 

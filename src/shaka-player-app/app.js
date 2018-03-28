@@ -1,3 +1,5 @@
+import shaka from 'shaka-player';
+
 // myapp.js
 export default function(video, videoSrc){
   var manifestUri = videoSrc;
@@ -22,7 +24,9 @@ export default function(video, videoSrc){
     var player = new shaka.Player(video);
 
     // Attach player to the window to make it easy to access in the JS console.
-    window.player = player;
+    window.shakaPlayers = window.shakaPlayers || [];
+    window.shakaPlayers.push(player);
+    //window.player = player;
 
     // Listen for error events.
     player.addEventListener('error', onErrorEvent);

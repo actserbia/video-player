@@ -35,7 +35,7 @@ export default function(playerWrap) {
     });
     linearWidth = nonlinearWidth = videoContent.offsetWidth;
     linearHeight = videoContent.offsetHeight;
-    console.log(linearWidth, linearHeight)
+    //console.log(linearWidth, linearHeight)
     setUpIMA();
   }
 

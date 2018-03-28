@@ -60,11 +60,16 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-          //presets: ['env']
-          //presets: ['@babel/preset-env']
-          //presets: [['es2015', {modules:false}]]
+        options: {
+          presets: ['es2015'],
+          //presets: ['env'],
+          // presets: ["env", {
+          //   "targets": {
+          //     "browsers": ["IE >= 11"]
+          //   },
+          // }],
+          //presets: ['@babel/preset-env'],
+          //presets: [['es2015', {modules:false}]],
         },
         exclude: [/node_modules\/shaka-player/]
       },

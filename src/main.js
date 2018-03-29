@@ -25,13 +25,13 @@ const resolveKaltura = (data) => {
 
 const resolveMashina = (data, video) => {
   linkVideo(data, video);
-  //const playerWrap = playerTemplate(video);
-  //imaAd(playerWrap);
+  const playerWrap = playerTemplate(video);
+  imaAd(playerWrap);
 }
 
 const resolveShaka = (video, videoSrc) => {
   const playerWrap = playerTemplate(video);
-
+  console.log("called from resolver");
   shaka_app(video, videoSrc);
   imaAd(playerWrap);
 }
@@ -42,9 +42,11 @@ let htmlVideos = document.getElementsByTagName('video');
 [...htmlVideos].forEach(function(video, index){
   switch (video.dataset.vtype) {
     case "kaltura" :
+    console.log('case masina');
       getKalturaData(video.dataset.vid, video).then(resolveKaltura);
       break;
     case "mashina" :
+
       fetch(MASINA_BASE_URL + video.dataset.vid )
         .then(function(response){
           return response.json();
@@ -54,6 +56,7 @@ let htmlVideos = document.getElementsByTagName('video');
         });
       break;
     case "shaka" :
+
       resolveShaka(video, video.dataset.vid);
       break;
   }

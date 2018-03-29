@@ -31,8 +31,9 @@ export default function(playerWrap) {
     //if (!adTagUrl) return;
     adContainer = playerWrap.getElementsByClassName('ad-container')[0];
     playButton = playerWrap.getElementsByClassName('play')[0];
-    playButton.addEventListener('click', ()=>{
+    playButton.addEventListener('click', (e)=>{
       playAds();
+      e.preventDefault()
       playAds = function(){};
     });
     linearWidth = nonlinearWidth = videoContent.offsetWidth;
@@ -68,7 +69,10 @@ export default function(playerWrap) {
 
     // An event listener to tell the SDK that our content video
     // is completed so the SDK can play any post-roll ads.
-    var contentEndedListener = function() {adsLoader.contentComplete();};
+    var contentEndedListener = function() {
+      adsLoader.contentComplete();
+      currentTime = 9999999999999999999;
+    };
     videoContent.onended = contentEndedListener;
 
     // Request video ads.
@@ -159,46 +163,54 @@ export default function(playerWrap) {
     // don't have ad object associated.
     var ad = adEvent.getAd();
     switch (adEvent.type) {
-      case google.ima.AdEvent.Type.LOADED:
-      console.log("ad loaded", ad.isLinear())
-      // This is the first event sent for an ad - it is possible to
-      // determine whether the ad is a video ad or an overlay.
-      if (!ad.isLinear()) {
-        // Position AdDisplayContainer correctly for overlay.
-        // Use ad.width and ad.height.
-        videoContent.play();
+      case (google.ima.AdEvent.Type.LOADED):
+      {
+        console.log("ad loaded", ad.isLinear())
+        // This is the first event sent for an ad - it is possible to
+        // determine whether the ad is a video ad or an overlay.
+        if (!ad.isLinear()) {
+          // Position AdDisplayContainer correctly for overlay.
+          // Use ad.width and ad.height.
+          videoContent.play();
+        }
       }
       break;
       case google.ima.AdEvent.Type.STARTED:
-      console.log("ad started", ad.isLinear())
-      // This event indicates the ad has started - the video player
-      // can adjust the UI, for example display a pause button and
-      // remaining time.
-      if (ad.isLinear()) {
-        // For a linear ad, a timer can be started to poll for
-        // the remaining time.
-        intervalTimer = setInterval(function() {
-          //currentTime = videoContent.currentTime;
-          var remainingTime = adsManager.getRemainingTime();
-        }, 300); // every 300ms
+      {
+        console.log("ad started", ad.isLinear())
+        // This event indicates the ad has started - the video player
+        // can adjust the UI, for example display a pause button and
+        // remaining time.
+        if (ad.isLinear()) {
+          // For a linear ad, a timer can be started to poll for
+          // the remaining time.
+          intervalTimer = setInterval(function() {
+            //currentTime = videoContent.currentTime;
+            var remainingTime = adsManager.getRemainingTime();
+          }, 300); // every 300ms
+        }
+        if (!ad.isLinear()) {
+          if (videoContent.shaka) {
+            videoContent.shaka.load(videoContent.getAttribute('data-vid'), currentTime).then(()=>{
+              videoContent.play();
+            });
+          }
+        }
       }
       break;
       case google.ima.AdEvent.Type.COMPLETE:
-      console.log("ad completed", ad.isLinear())
-      // This event indicates the ad has finished - the video player
-      // can perform appropriate UI actions, such as removing the timer for
-      // remaining time detection.
-      if (ad.isLinear()) {
-        if (videoContent.shaka) {
-          clearInterval(intervalTimer);
-          videoContent.shaka.load(videoContent.getAttribute('data-vid'), currentTime);
+      {
+        console.log("ad completed", ad.isLinear())
+        // This event indicates the ad has finished - the video player
+        // can perform appropriate UI actions, such as removing the timer for
+        // remaining time detection.
+        if (ad.isLinear()) {
+          if (videoContent.shaka) {
+            clearInterval(intervalTimer);
+            videoContent.shaka.load(videoContent.getAttribute('data-vid'), currentTime);
+          }
         }
       }
-
-
-
-
-      console.log
       break;
     }
   }

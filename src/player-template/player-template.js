@@ -28,18 +28,20 @@ export default function(videoDom) {
   wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
 
 
-  wrap.getElementsByClassName('playv')[0].addEventListener('click', function(){
+  wrap.getElementsByClassName('playv')[0].addEventListener('click', function(e){
     videoDom.play();
+    e.preventDefault();
   });
-  wrap.getElementsByClassName('pause')[0].addEventListener('click', function(){
+  wrap.getElementsByClassName('pause')[0].addEventListener('click', function(e){
     videoDom.pause();
+    e.preventDefault();
   });
   var seekBar = wrap.getElementsByClassName('video-controls__seekbar')[0],
       volumeBar = wrap.getElementsByClassName('video-controls__volumebar')[0],
       fullScreenButton = wrap.getElementsByClassName('video-controls__fullscreen')[0];
 
     // Event listener for the full-screen button
-  fullScreenButton.addEventListener("click", function() {
+  fullScreenButton.addEventListener("click", function(e) {
     if (videoDom.requestFullscreen) {
       videoDom.requestFullscreen();
     } else if (videoDom.mozRequestFullScreen) {
@@ -47,6 +49,7 @@ export default function(videoDom) {
     } else if (videoDom.webkitRequestFullscreen) {
       videoDom.webkitRequestFullscreen(); // Chrome and Safari
     }
+    e.preventDefault();
   });
     // Event listener for the seek bar
   seekBar.addEventListener("change", function() {

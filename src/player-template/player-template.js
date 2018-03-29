@@ -1,4 +1,4 @@
-require('./player-template.scss')
+import './player-template.scss'
 export default function(videoDom) {
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;

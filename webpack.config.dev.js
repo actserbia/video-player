@@ -1,5 +1,5 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+//const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -9,21 +9,22 @@ module.exports = {
   entry: './src/main.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist'
   },
   devtool: 'source-map',
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    //new CleanWebpackPlugin(['dist']),
     //new ExtractTextPlugin("../dev.css"),
-    //new webpack.HotModuleReplacementPlugin()
-    new webpack.ProvidePlugin({
+    new webpack.HotModuleReplacementPlugin(),
+    //new webpack.ProvidePlugin({
       //shaka: 'script-loader!shaka-player/dist/shaka-player.compiled.js'
-    }),
+    //}),
   ],
   "devServer": {
     "contentBase": "./",
     open: true,
-    //hot: true,
+    hot: true,
     inline: true,
     publicPath: path.resolve(__dirname, '/dist/'),
     host: '0.0.0.0',

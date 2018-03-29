@@ -1,12 +1,16 @@
 import './player-template.scss'
 export default function(videoDom) {
+
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;
+
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
   const template = `
 
-    <div class='ad-container'></div>
+    <div class='ad-video-bundler'>
+      <div class='ad-container'></div>
+    </div>
 
     <div class='control-bar'>
       <a class='play' href="#">play add</a>
@@ -16,13 +20,12 @@ export default function(videoDom) {
       <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
       <button class="video-controls__fullscreen">Fullscreen</button>
     </div>
+
   `;
 
-
   wrap.insertAdjacentHTML("afterbegin", template);
-  // videoDom.insertAdjacentHTML("afterend", videoControls);
   videoDom.insertAdjacentElement("afterend", wrap);
-  wrap.appendChild(videoDom);
+  wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
 
 
   wrap.getElementsByClassName('playv')[0].addEventListener('click', function(){

@@ -26,6 +26,7 @@ export default function(video, videoSrc){
     // Attach player to the window to make it easy to access in the JS console.
     window.shakaPlayers = window.shakaPlayers || [];
     window.shakaPlayers.push(player);
+    video.shaka = player;
     //window.player = player;
 
     // Listen for error events.

@@ -31,7 +31,6 @@ const resolveMashina = (data, video) => {
 
 const resolveShaka = (video, videoSrc) => {
   const playerWrap = playerTemplate(video);
-  console.log("called from resolver");
   shaka_app(video, videoSrc);
   imaAd(playerWrap);
 }
@@ -42,7 +41,6 @@ let htmlVideos = document.getElementsByTagName('video');
 [...htmlVideos].forEach(function(video, index){
   switch (video.dataset.vtype) {
     case "kaltura" :
-    console.log('case masina');
       getKalturaData(video.dataset.vid, video).then(resolveKaltura);
       break;
     case "mashina" :

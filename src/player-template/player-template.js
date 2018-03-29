@@ -3,7 +3,6 @@ export default function(videoDom) {
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;
   const wrap = document.createElement("div");
-  console.log("called for template");
   wrap.className = 'player-wrap';
   const template = `
 

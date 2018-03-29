@@ -25,7 +25,6 @@ export default function(playerWrap) {
 
 
   function init() {
-    console.log('init');
     videoContent = playerWrap.getElementsByClassName('video-in-template')[0];
     adTagUrl = videoContent.dataset.adtagurl;
     //if (!adTagUrl) return;
@@ -40,9 +39,7 @@ export default function(playerWrap) {
     linearHeight = videoContent.offsetHeight;
     //console.log(linearWidth, linearHeight)
     videoContent.addEventListener('progress', () => {
-      console.log("videoContent.currentTime", videoContent.currentTime)
       if (!!videoContent.currentTime) { //not null :)
-        console.log("set currentTime", videoContent.currentTime)
         currentTime = videoContent.currentTime;
       }
     });
@@ -165,7 +162,6 @@ export default function(playerWrap) {
     switch (adEvent.type) {
       case (google.ima.AdEvent.Type.LOADED):
       {
-        console.log("ad loaded", ad.isLinear())
         // This is the first event sent for an ad - it is possible to
         // determine whether the ad is a video ad or an overlay.
         if (!ad.isLinear()) {
@@ -177,7 +173,6 @@ export default function(playerWrap) {
       break;
       case google.ima.AdEvent.Type.STARTED:
       {
-        console.log("ad started", ad.isLinear())
         // This event indicates the ad has started - the video player
         // can adjust the UI, for example display a pause button and
         // remaining time.
@@ -200,7 +195,6 @@ export default function(playerWrap) {
       break;
       case google.ima.AdEvent.Type.COMPLETE:
       {
-        console.log("ad completed", ad.isLinear())
         // This event indicates the ad has finished - the video player
         // can perform appropriate UI actions, such as removing the timer for
         // remaining time detection.

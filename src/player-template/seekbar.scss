@@ -1,0 +1,57 @@
+.seekbar__container {
+  width: 100%;
+  position: relative;
+  margin-top: -4px;
+  margin-bottom: 15px;
+  &:hover {
+    cursor:pointer;
+    .seekbar__line {
+      height: 5px;
+      top: -2px;
+
+    }
+    .seekbar__handle {
+      transform: scale(1);
+      top: -6px;
+    }
+  }
+}
+.seekbar__line {
+  width: 100%;
+  position: absolute;
+  background: #9e9e9e;
+  height: 3px;
+  top:0;
+  z-index: 0;
+}
+.seekbar__handle {
+  width: 13px;
+  height: 13px;
+  z-index: 5;
+  border-radius: 50%;
+  position: absolute;
+  left:0;
+  margin-left:-6.5px;
+  top:-5px;
+  background: red;
+  transition:all 150ms;
+  transform:scale(0.1);
+}
+
+.seekbar__progress {
+  @extend .seekbar__line;
+  background: red;
+  width: 0%;
+  z-index: 4;
+  position: absolute;
+  left:0;
+}
+.seekbar__buffer {
+  @extend .seekbar__line;
+  background: #dcdcdc;
+  width: 0%;
+  z-index: 3;
+  left:0;
+  position: absolute;
+  top:0;
+}

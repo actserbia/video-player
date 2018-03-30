@@ -1,8 +1,13 @@
-import './player-template.scss'
-export default function(videoDom) {
+// import './player-template.scss'
+import seek from './seekbar'
 
+export default function(videoDom) {
+  // console.log(seekbar_container);
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;
+
+  const seekbar = seek();
+  seekbar.init();
 
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
@@ -16,7 +21,6 @@ export default function(videoDom) {
       <a class='play' href="#">play add</a>
       <a class='pause' href="#">pause</a>
       <a class='playv' href="#">play video</a>
-      <input type="range" / class='video-controls__seekbar' value='0'>
       <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
       <button class="video-controls__fullscreen">Fullscreen</button>
     </div>
@@ -25,7 +29,9 @@ export default function(videoDom) {
 
   wrap.insertAdjacentHTML("afterbegin", template);
   videoDom.insertAdjacentElement("afterend", wrap);
+
   wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
+  videoDom.insertAdjacentElement("afterend", seekbar);
 
 
   wrap.getElementsByClassName('playv')[0].addEventListener('click', function(e){
@@ -36,8 +42,7 @@ export default function(videoDom) {
     videoDom.pause();
     e.preventDefault();
   });
-  var seekBar = wrap.getElementsByClassName('video-controls__seekbar')[0],
-      volumeBar = wrap.getElementsByClassName('video-controls__volumebar')[0],
+  var volumeBar = wrap.getElementsByClassName('video-controls__volumebar')[0],
       fullScreenButton = wrap.getElementsByClassName('video-controls__fullscreen')[0];
 
     // Event listener for the full-screen button
@@ -51,21 +56,31 @@ export default function(videoDom) {
     }
     e.preventDefault();
   });
-    // Event listener for the seek bar
-  seekBar.addEventListener("change", function() {
-    // Calculate the new time
-    var time = videoDom.duration * (seekBar.value / 100);
 
-    // Update the video time
-    videoDom.currentTime = time;
+  seekbar.addEventListener("click", function(e){
+    var cx = e.clientX - seekbar.offsetLeft;
+
+    // console.log(cx);
+    // console.log(seek.offsetWidth );
+    var percent =   cx / seekbar.offsetWidth * 100;
+    seekbar.value = percent;
+    videoDom.currentTime = videoDom.duration * percent / 100;
+    seekbar.update();
   });
     // Update the seek bar as the video plays
   videoDom.addEventListener("timeupdate", function() {
     // Calculate the slider value
     var value = (100 / videoDom.duration) * videoDom.currentTime;
-
+    var bufferValue = (100 / videoDom.duration) * videoDom.shaka.getBufferedInfo().total[0].end;
     // Update the slider value
-    seekBar.value = value;
+
+    seekbar.value = value;
+    seekbar.bufferValue = bufferValue;
+
+
+
+    seekbar.update();
+    // console.log(seekbar.value);
   });
   //   // Pause the video when the slider handle is being dragged
   // seekBar.addEventListener("mousedown", function() {

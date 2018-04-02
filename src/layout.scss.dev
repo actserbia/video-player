@@ -12,6 +12,7 @@ html, body {
   margin: 0 auto;
   video {
     width: 100%;
+    display:block;
   }
 }
 .row {

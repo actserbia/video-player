@@ -1,4 +1,4 @@
-// import './player-template.scss'
+import './player-template.scss'
 import seek from './seekbar'
 
 export default function(videoDom) {
@@ -6,7 +6,7 @@ export default function(videoDom) {
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;
 
-  const seekbar = seek();
+  const seekbar = seek(videoDom);
   seekbar.init();
 
   const wrap = document.createElement("div");
@@ -31,22 +31,21 @@ export default function(videoDom) {
   videoDom.insertAdjacentElement("afterend", wrap);
 
   wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
-  videoDom.insertAdjacentElement("afterend", seekbar);
+  var el =   wrap.getElementsByClassName('play')[0];
+  wrap.getElementsByClassName('control-bar')[0].insertBefore(seekbar, el);
 
 
-  wrap.getElementsByClassName('playv')[0].addEventListener('click', function(e){
+  wrap.getElementsByClassName('playv')[0].addEventListener('click', function(){
     videoDom.play();
-    e.preventDefault();
   });
-  wrap.getElementsByClassName('pause')[0].addEventListener('click', function(e){
+  wrap.getElementsByClassName('pause')[0].addEventListener('click', function(){
     videoDom.pause();
-    e.preventDefault();
   });
   var volumeBar = wrap.getElementsByClassName('video-controls__volumebar')[0],
       fullScreenButton = wrap.getElementsByClassName('video-controls__fullscreen')[0];
 
     // Event listener for the full-screen button
-  fullScreenButton.addEventListener("click", function(e) {
+  fullScreenButton.addEventListener("click", function() {
     if (videoDom.requestFullscreen) {
       videoDom.requestFullscreen();
     } else if (videoDom.mozRequestFullScreen) {
@@ -54,43 +53,8 @@ export default function(videoDom) {
     } else if (videoDom.webkitRequestFullscreen) {
       videoDom.webkitRequestFullscreen(); // Chrome and Safari
     }
-    e.preventDefault();
   });
 
-  seekbar.addEventListener("click", function(e){
-    var cx = e.clientX - seekbar.offsetLeft;
-
-    // console.log(cx);
-    // console.log(seek.offsetWidth );
-    var percent =   cx / seekbar.offsetWidth * 100;
-    seekbar.value = percent;
-    videoDom.currentTime = videoDom.duration * percent / 100;
-    seekbar.update();
-  });
-    // Update the seek bar as the video plays
-  videoDom.addEventListener("timeupdate", function() {
-    // Calculate the slider value
-    var value = (100 / videoDom.duration) * videoDom.currentTime;
-    var bufferValue = (100 / videoDom.duration) * videoDom.shaka.getBufferedInfo().total[0].end;
-    // Update the slider value
-
-    seekbar.value = value;
-    seekbar.bufferValue = bufferValue;
-
-
-
-    seekbar.update();
-    // console.log(seekbar.value);
-  });
-  //   // Pause the video when the slider handle is being dragged
-  // seekBar.addEventListener("mousedown", function() {
-  //   videoDom.pause();
-  // });
-  //
-  // // Play the video when the slider handle is dropped
-  // seekBar.addEventListener("mouseup", function() {
-  //   videoDom.play();
-  // });
   // Event listener for the volume bar
   volumeBar.addEventListener("change", function() {
     // Update the video volume

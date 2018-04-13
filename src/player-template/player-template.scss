@@ -29,3 +29,15 @@
 
   }
 }
+.loading-ico {
+  width: 30px;
+  position: absolute;
+  display: none;
+  z-index: 99;
+  left: 50%;
+  top: 42%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.player-wrap {
+  position: relative;
+}

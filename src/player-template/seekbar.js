@@ -21,9 +21,9 @@ export default function seekbar_container(videoDom){
       seekbar_progress;
 
   seek.addEventListener("click", function(e){
-    var cx = e.clientX - seek.offsetLeft;
+    var cx = e.clientX - seek.getBoundingClientRect().left;
     console.log('cx',e.clientX);
-    console.log('offsetLeft', seek.offsetLeft);
+    console.log('offsetLeft', seek.getBoundingClientRect().left);
     var percent =   cx / seek.offsetWidth * 100;
     seek.value = percent;
     console.log(percent);

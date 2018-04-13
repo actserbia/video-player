@@ -12,7 +12,7 @@ export default function(videoDom) {
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
   const template = `
-
+    <img src='/src/img/loading.gif' class='loading-ico'></img>
     <div class='ad-video-bundler'>
       <div class='ad-container'></div>
     </div>
@@ -34,6 +34,7 @@ export default function(videoDom) {
   var el =   wrap.getElementsByClassName('play')[0];
   wrap.getElementsByClassName('control-bar')[0].insertBefore(seekbar, el);
 
+  videoDom.loading_ico = wrap.getElementsByClassName('loading-ico')[0];
 
   wrap.getElementsByClassName('playv')[0].addEventListener('click', function(){
     videoDom.play();
@@ -41,8 +42,41 @@ export default function(videoDom) {
   wrap.getElementsByClassName('pause')[0].addEventListener('click', function(){
     videoDom.pause();
   });
+
+
   var volumeBar = wrap.getElementsByClassName('video-controls__volumebar')[0],
       fullScreenButton = wrap.getElementsByClassName('video-controls__fullscreen')[0];
+
+    videoDom.addEventListener("timeupdate", function() {
+       console.log("updating time");
+       clearTimeout(timeout);
+       videoDom.loading_ico.style.display = "none";
+
+    });
+    videoDom.addEventListener("playing", function() {
+       console.log("playing");
+       videoDom.loading_ico.style.display = "none";
+    });
+    videoDom.addEventListener("paused", function() {
+       console.log("paused");
+       videoDom.loading_ico.style.display = "none";
+    });
+
+
+    var timeout;
+    videoDom.addEventListener("stalled", function() {
+       if(videoDom.played.length != 0){
+         timeout = setTimeout(function(){
+           videoDom.loading_ico.style.display = "block";
+           console.log("stalling");
+         }, 150)
+       }
+    });
+
+    videoDom.addEventListener("waiting", function() {
+       console.log("waiting");
+       videoDom.loading_ico.style.display = "block";
+    });
 
     // Event listener for the full-screen button
   fullScreenButton.addEventListener("click", function() {

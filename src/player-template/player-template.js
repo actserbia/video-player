@@ -38,13 +38,6 @@ export default function(videoDom) {
 
 //  B I N D I N G S
 
-  //var el =   wrap.getElementsByClassName('play')[0];
-  //const seekbar = seek(videoDom);
-
-
-
-
-
   videoDom.loading_ico = wrap.getElementsByClassName('loading-ico')[0];
 
   wrap.getElementsByClassName('playv')[0].addEventListener('click', function(){

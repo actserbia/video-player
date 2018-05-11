@@ -2,12 +2,11 @@ import './player-template.scss'
 import seek from './seekbar'
 
 export default function(videoDom) {
-  // console.log(seekbar_container);
+
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;
 
-  const seekbar = seek(videoDom);
-  seekbar.init();
+  //  T E M P L A T I N G
 
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
@@ -16,30 +15,35 @@ export default function(videoDom) {
     <div class='ad-video-bundler'>
       <div class='ad-container'></div>
     </div>
-
     <div class='control-bar'>
       <a class='play' href="#">play add</a>
       <a class='pause' href="#">pause</a>
       <a class='playv' href="#">play video</a>
       <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
-      <button class="video-controls__fullscreen">Fullscreen</button>
+      <a class="video-controls__fullscreen" href="#">Fullscreen</a>
+      <span class="languages"></span>
+      <span class="resolutions"></span>
     </div>
-
   `;
-
-  var hlsPlayer = document.createElement("video");
-  hlsPlayer.controls = true;
-  hlsPlayer.src = 'http://www.streambox.fr/playlists/test_001/stream.m3u8';
-
-  wrap.appendChild(hlsPlayer);
-  hlsPlayer.play();
-
+  // template --> wrap
   wrap.insertAdjacentHTML("afterbegin", template);
+  // wrap beside <video>
   videoDom.insertAdjacentElement("afterend", wrap);
-
+  // <video> --> wrap
   wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
-  var el =   wrap.getElementsByClassName('play')[0];
-  wrap.getElementsByClassName('control-bar')[0].insertBefore(seekbar, el);
+  // SeekBar
+  wrap.getElementsByClassName('control-bar')[0].insertAdjacentElement("afterbegin", seek(videoDom));
+
+
+
+//  B I N D I N G S
+
+  //var el =   wrap.getElementsByClassName('play')[0];
+  //const seekbar = seek(videoDom);
+
+
+
+
 
   videoDom.loading_ico = wrap.getElementsByClassName('loading-ico')[0];
 

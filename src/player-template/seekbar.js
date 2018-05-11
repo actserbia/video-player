@@ -60,6 +60,8 @@ export default function seekbar_container(videoDom){
     seekbar_buffer.style.width= seek.bufferValue +'%';
   }
 
+  seek.init();
+
   return seek;
 
 }

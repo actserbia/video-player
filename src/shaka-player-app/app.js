@@ -36,9 +36,7 @@ export default function(video, videoSrc){
     // This is an asynchronous process.
     player.load(manifestUri).then(function() {
       // This runs if the asynchronous load is successful.
-      console.log('The video has now been loaded!');
-
-
+      //console.log('The video has now been loaded!');
       if (player.getAudioLanguages().length > 1) {
 
       }

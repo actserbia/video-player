@@ -22,11 +22,11 @@ export default function seekbar_container(videoDom){
 
   seek.addEventListener("click", function(e){
     var cx = e.clientX - seek.getBoundingClientRect().left;
-    console.log('cx',e.clientX);
-    console.log('offsetLeft', seek.getBoundingClientRect().left);
+    //console.log('cx',e.clientX);
+    //console.log('offsetLeft', seek.getBoundingClientRect().left);
     var percent =   cx / seek.offsetWidth * 100;
     seek.value = percent;
-    console.log(percent);
+    //console.log(percent);
     videoDom.currentTime = videoDom.duration * percent / 100;
     seek.update();
   });

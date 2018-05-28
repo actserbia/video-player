@@ -10,6 +10,7 @@ import linkVideo from './MSE/mseApi.js'
 import playerTemplate from './player-template/player-template.js'
 import imaAd from './IMA-Ads/ima-ad.js'
 import shaka_app from './shaka-player-app/app.js'
+import hls_app from './hls-player/hls-player.js'
 
 
 const MASINA_BASE_URL = "http://vasilie.net/video-sources/?vid=";
@@ -35,6 +36,12 @@ const resolveShaka = (video, videoSrc) => {
   imaAd(playerWrap);
 }
 
+const resolveHLS = (video) => {
+  const playerWrap = playerTemplate(video);
+  hls_app(video);
+  imaAd(playerWrap);
+}
+
 // ITERATE PAGE VIDEOS
 let htmlVideos = document.getElementsByTagName('video');
 
@@ -44,7 +51,6 @@ let htmlVideos = document.getElementsByTagName('video');
       getKalturaData(video.dataset.vid, video).then(resolveKaltura);
       break;
     case "mashina" :
-
       fetch(MASINA_BASE_URL + video.dataset.vid )
         .then(function(response){
           return response.json();
@@ -54,8 +60,10 @@ let htmlVideos = document.getElementsByTagName('video');
         });
       break;
     case "shaka" :
-
       resolveShaka(video, video.dataset.vid);
+      break;
+    case "hls" :
+      resolveHLS(video);
       break;
   }
 });

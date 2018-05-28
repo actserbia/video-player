@@ -190,6 +190,10 @@ export default function(playerWrap) {
               videoContent.play();
             });
           }
+          if (videoContent.hlsjs) {
+            videoContent.hlsjs.attachMedia(videoContent);
+            videoContent.play();
+          }
         }
       }
       break;
@@ -202,6 +206,12 @@ export default function(playerWrap) {
           if (videoContent.shaka) {
             clearInterval(intervalTimer);
             videoContent.shaka.load(videoContent.getAttribute('data-vid'), currentTime);
+          }
+          if (videoContent.hlsjs) {
+            clearInterval(intervalTimer);
+            videoContent.hlsjs.attachMedia(videoContent);
+            videoContent.currentTime = currentTime;
+            videoContent.play();
           }
         }
       }

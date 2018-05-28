@@ -72,7 +72,7 @@ module.exports = {
           //presets: ['@babel/preset-env'],
           //presets: [['es2015', {modules:false}]],
         },
-        exclude: [/node_modules\/shaka-player/]
+        exclude: [/node_modules/]
       },
     ],
 

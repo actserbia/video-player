@@ -62,17 +62,18 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         options: {
-          presets: ['es2015'],
+          //presets: ['es2015'],
           //presets: ['env'],
-          // presets: ["env", {
-          //   "targets": {
-          //     "browsers": ["IE >= 11"]
-          //   },
-          // }],
+          presets: [["env", {
+            "targets": {
+              "browsers": ["ie >= 7"]
+            },
+          }]],
           //presets: ['@babel/preset-env'],
           //presets: [['es2015', {modules:false}]],
         },
-        exclude: [/node_modules/]
+        exclude: [/node_modules\/hls/],
+        //include: [/node_modules\/MY_MODULE/]
       },
     ],
 

@@ -14,7 +14,7 @@ export function getJWPData(entryId, videoDom){
               var resolvedData =  {
                 type: "jwp",
                 videoDom: videoDom,
-                flavors:[],
+                flavors:[]
               }
 
               response.playlist[0].sources.forEach(function(source){

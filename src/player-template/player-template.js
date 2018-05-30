@@ -11,7 +11,7 @@ export default function(videoDom) {
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
   const template = `
-  <img src='/src/img/loading.gif' class='loading-ico'></img>
+  <img src='/src/player-template/img/loading.gif' class='loading-ico'></img>
   <div class='ad-video-bundler'>
     <div class='ad-container'></div>
   </div>

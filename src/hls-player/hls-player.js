@@ -2,7 +2,7 @@ var Hls = require('hls.js');
 
 
 
-export default function(video) {
+export default function(video, hlsManifestUrl) {
 
 
 
@@ -82,7 +82,7 @@ video.hlsjs = hls;
 
     hls.attachMedia(video);
     hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-      hls.loadSource(video.getAttribute("data-vid"));
+      hls.loadSource(hlsManifestUrl);
     });
 
 

@@ -3,11 +3,10 @@
     "start": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.build.js"
   },
-  "dependencies": {},
   "devDependencies": {
+    "array-from": "^2.1.1",
     "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.18",
     "css-loader": "^0.28.10",
     "extract-text-webpack-plugin": "v4.0.0-beta.0",

@@ -64,13 +64,24 @@ module.exports = {
         options: {
           //presets: ['es2015'],
           //presets: ['env'],
-          presets: [["env", {
-            "targets": {
-              "browsers": ["ie >= 7"]
-            },
-          }]],
+
+          presets: [
+            ["env", {
+              "targets": {
+                "browsers": [
+                  "last 2 versions",
+                  "safari >= 7",
+                  "ie >= 10"
+                ],
+
+              },
+              "debug": true,
+              "include": ["es6.array.from"],
+            }]
+          ],
+
           //presets: ['@babel/preset-env'],
-          //presets: [['es2015', {modules:false}]],
+
         },
         exclude: [/node_modules\/hls/],
         //include: [/node_modules\/MY_MODULE/]

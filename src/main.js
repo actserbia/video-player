@@ -18,9 +18,13 @@ var Hls = require('hls.js');
 
 const MASINA_BASE_URL = "http://vasilie.net/video-sources/?vid=";
 
+if (!Array.from) {
+  Array.from = require('array-from');
+}
+
 const resolveVideo = (data) => {
 
-  console.log(data.type, data.flavors)
+  //console.log(data.type, data.flavors)
 
   const playerWrap = playerTemplate(data.videoDom);
 

@@ -1,9 +1,11 @@
-export function getKalturaData(entryId, videoDom){
+export function getKalturaData(entryId, videoDom, prefs="{}"){
 
   return new Promise(function(resolve, reject){
 
-    var wid = '_676152';
-    var partnerId = 676152;
+    prefs = JSON.parse(prefs);
+
+    var wid = prefs.wid || '_676152';
+    var partnerId = prefs.partnerId || 676152;
 
     window["kalturaJspCallback_"+entryId] = function(data){
       // http://cdnapi.kaltura.com/p/2376541/sp/237654100/playManifest/entryId/0_gq6w4m8p/flavorId/0_nlpk46wr/format/url/protocol/http/a.mp4

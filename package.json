@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js",
+    "dev": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.build.js"
   },
   "devDependencies": {

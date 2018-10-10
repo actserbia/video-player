@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/main.js',
   output: {
     filename: 'bundle.js',
@@ -13,7 +13,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new ExtractTextPlugin("../dev.css"),
+    new ExtractTextPlugin("bundle.css"),
     //new webpack.HotModuleReplacementPlugin()
   ],
   "devServer": {
@@ -30,32 +30,49 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader']
+        })
       },
       {
         test:/\.scss$/,
-        use:[
-          'style-loader', // creates style nodes from JS strings
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader' // compiles Sass to CSS
-        ]
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'sass-loader']
+        })
       },
       {
         test:/\.scss.dev$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
           use: ['css-loader', 'sass-loader']
         })
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        }
+        options: {
+          //presets: ['es2015'],
+          //presets: ['env'],
+
+          presets: [
+            ["env", {
+              "targets": {
+                "browsers": [
+                  "last 2 versions",
+                  //"safari >= 7",
+                  "ie >= 10"
+                ],
+
+              },
+              "debug": false,
+              "include": ["es6.array.from"],
+            }]
+          ],
+
+          //presets: ['@babel/preset-env'],
+
+        },
+        exclude: [/node_modules\/hls/],
+        //include: [/node_modules\/MY_MODULE/]
       },
     ],
 

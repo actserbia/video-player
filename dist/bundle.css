@@ -1,0 +1,118 @@
+video {
+  width: 100%; }
+html, body {
+  margin: 0; }
+
+* {
+  box-sizing: border-box; }
+
+.container {
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto; }
+  .container video {
+    width: 100%;
+    display: block; }
+
+.row {
+  postition: relative; }
+  @media (min-width: 960px) {
+    .row .col-half {
+      width: 50%;
+      float: left;
+      padding: 10px; } }
+  @media not all and (min-width: 960px) {
+    .row .col-half {
+      width: 100%;
+      float: left;
+      padding: 10px; } }
+  .row:after {
+    display: table;
+    content: " ";
+    clear: both; }
+.control-bar a {
+  vertical-align: center;
+  color: #6f6f6f;
+  text-decoration: none;
+  padding: 10px;
+  margin-left: 5px;
+  outline: 1px solid #6f6f6f; }
+
+.ad-video-bundler {
+  position: relative; }
+  .ad-video-bundler .ad-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; }
+    .ad-video-bundler .ad-container > div {
+      width: 100% !important;
+      height: 100% !important; }
+      .ad-video-bundler .ad-container > div iframe {
+        width: 1px !important;
+        min-width: 100% !important;
+        height: 100% !important; }
+
+.loading-ico {
+  width: 30px;
+  position: absolute;
+  display: none;
+  z-index: 99;
+  left: 50%;
+  top: 42%;
+  transform: translateX(-50%) translateY(-50%); }
+
+.player-wrap {
+  position: relative; }
+.seekbar__container {
+  width: 100%;
+  position: relative;
+  margin-top: -8px;
+  z-index: 99;
+  padding-bottom: 8px;
+  margin-bottom: 33px; }
+  .seekbar__container:hover {
+    cursor: pointer; }
+    .seekbar__container:hover .seekbar__line, .seekbar__container:hover .seekbar__progress, .seekbar__container:hover .seekbar__buffer {
+      height: 5px;
+      top: 6px; }
+    .seekbar__container:hover .seekbar__handle {
+      transform: scale(1);
+      top: 2px; }
+
+.seekbar__line, .seekbar__progress, .seekbar__buffer {
+  width: 100%;
+  position: absolute;
+  background: #9e9e9e;
+  height: 3px;
+  top: 8px;
+  z-index: 0; }
+
+.seekbar__handle {
+  width: 13px;
+  height: 13px;
+  z-index: 5;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  margin-left: -6.5px;
+  top: 2px;
+  background: red;
+  transition: all 150ms;
+  transform: scale(0); }
+
+.seekbar__progress {
+  background: red;
+  width: 0%;
+  z-index: 4;
+  position: absolute;
+  left: 0; }
+
+.seekbar__buffer {
+  background: #dcdcdc;
+  width: 0%;
+  z-index: 3;
+  left: 0;
+  position: absolute; }

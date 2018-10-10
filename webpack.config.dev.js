@@ -1,5 +1,5 @@
 const path = require('path');
-//const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -14,7 +14,7 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
-    //new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(['dist']),
     //new ExtractTextPlugin("../dev.css"),
     new webpack.HotModuleReplacementPlugin(),
     //new webpack.ProvidePlugin({

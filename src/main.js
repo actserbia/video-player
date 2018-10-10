@@ -50,7 +50,7 @@ let htmlVideos = document.getElementsByTagName('video');
 [...htmlVideos].forEach(function(video, index){
   switch (video.dataset.vtype) {
     case "kaltura" :
-      getKalturaData(video.dataset.vid, video).then(resolveVideo);
+      getKalturaData(video.dataset.vid, video, video.dataset.prefs).then(resolveVideo);
       break;
     case "jwp" :
       //resolveJWP(video);

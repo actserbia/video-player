@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.build.js"
+    "build": "webpack --config webpack.config.build.js",
+    "watch": "webpack --config webpack.config.build.js --watch"
   },
   "devDependencies": {
     "array-from": "^2.1.1",

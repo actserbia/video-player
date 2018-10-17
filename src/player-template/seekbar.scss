@@ -1,10 +1,10 @@
 .seekbar__container {
-  width: 100%;
+  //width: 100%;
   position: relative;
-  margin-top: -8px;
+  //margin-top: -8px;
   z-index: 99;
-  padding-bottom: 8px;
-  margin-bottom: 33px;
+  //padding-bottom: 8px;
+  //margin-bottom: 33px;
   &:hover {
     cursor:pointer;
     .seekbar__line {
@@ -35,14 +35,14 @@
   left:0;
   margin-left:-6.5px;
   top:2px;
-  background: red;
+  background: #dfdfdf;
   transition:all 150ms;
   transform:scale(0);
 }
 
 .seekbar__progress {
   @extend .seekbar__line;
-  background: red;
+  background: #dfdfdf;
   width: 0%;
   z-index: 4;
   position: absolute;

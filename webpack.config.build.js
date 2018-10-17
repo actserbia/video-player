@@ -74,6 +74,19 @@ module.exports = {
         exclude: [/node_modules\/hls/],
         //include: [/node_modules\/MY_MODULE/]
       },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {}
+          }
+        ]
+      }
     ],
 
   },

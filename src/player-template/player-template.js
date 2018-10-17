@@ -1,28 +1,39 @@
 import './player-template.scss'
 import seek from './seekbar'
+import trigger from '../libs/trigger.js'
+
+import loadingGif from './img/loading.gif'
+import playSvg from './img/play-button.svg'
+import pauseSvg from './img/pause-button.svg'
+
 
 export default function(videoDom) {
 
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;
 
+  let duration = false;
+
   //  T E M P L A T I N G
 
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
   const template = `
-  <img src='/src/player-template/img/loading.gif' class='loading-ico'></img>
+  <img src=${loadingGif} class='loading-ico'></img>
   <div class='ad-video-bundler'>
     <div class='ad-container'></div>
   </div>
   <div class='control-bar'>
-    <a class='play' href="#">play add</a>
-    <a class='pause' href="#">pause</a>
-    <a class='playv' href="#">play video</a>
+
     <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
     <a class="video-controls__fullscreen" href="#">Fullscreen</a>
     <span class="languages"></span>
     <span class="resolutions"></span>
+    <div class="control-bar--bottom">
+      <a class='pause-button' href="#">${pauseSvg}</a>
+      <a class='play-button' href="#">${playSvg}</a>
+      <span class="time-watch"></span>
+    </div>
   </div>
   `;
   // template --> wrap
@@ -32,7 +43,19 @@ export default function(videoDom) {
   // <video> --> wrap
   wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
   // SeekBar
-  wrap.getElementsByClassName('control-bar')[0].insertAdjacentElement("afterbegin", seek(videoDom));
+  wrap.getElementsByClassName('time-watch')[0].insertAdjacentElement("beforebegin", seek(videoDom));
+
+  let printTime = function(current = videoDom.currentTime) {
+    let el = wrap.getElementsByClassName('time-watch')[0];
+    let durationM = Math.floor( duration / 60 );
+    let durationS = String(Math.floor(duration - (durationM * 60)));
+    durationS = (durationS.length===1) ? "0"+durationS : durationS;
+    let currentM = Math.floor( current / 60 );
+    let currentS = String(Math.floor(current - (currentM * 60)));
+    currentS = (currentS.length===1) ? "0"+currentS : currentS;
+    let time = `${currentM}:${currentS} / ${durationM}:${durationS}`;
+    el.innerHTML = time;
+  }
 
 
 
@@ -40,11 +63,21 @@ export default function(videoDom) {
 
   videoDom.loading_ico = wrap.getElementsByClassName('loading-ico')[0];
 
-  wrap.getElementsByClassName('playv')[0].addEventListener('click', function(ev){
+
+  var adInitialized = false;
+  wrap.getElementsByClassName('play-button')[0].addEventListener('click', function(ev){
     ev.preventDefault();
-    videoDom.play();
+    if(adInitialized) {
+      videoDom.play();
+    }
+    else {
+      trigger(wrap, 'playButtonClick');
+      adInitialized = true;
+    }
   });
-  wrap.getElementsByClassName('pause')[0].addEventListener('click', function(ev){
+
+
+  wrap.getElementsByClassName('pause-button')[0].addEventListener('click', function(ev){
     ev.preventDefault();
     videoDom.pause();
   });
@@ -53,18 +86,29 @@ export default function(videoDom) {
   var volumeBar = wrap.getElementsByClassName('video-controls__volumebar')[0],
   fullScreenButton = wrap.getElementsByClassName('video-controls__fullscreen')[0];
 
+  videoDom.addEventListener('loadedmetadata', function() {
+    duration = videoDom.duration;
+    printTime();
+  });
+
   videoDom.addEventListener("timeupdate", function() {
     //console.log("updating time");
     clearTimeout(timeout);
     videoDom.loading_ico.style.display = "none";
 
+    printTime();
+
   });
+
   videoDom.addEventListener("playing", function() {
     //console.log("playing");
+    wrap.classList.add('video-playing');
     videoDom.loading_ico.style.display = "none";
   });
-  videoDom.addEventListener("paused", function() {
-    //console.log("paused");
+
+  videoDom.addEventListener("pause", function() {
+    console.log("paused");
+    wrap.classList.remove('video-playing');
     videoDom.loading_ico.style.display = "none";
   });
 

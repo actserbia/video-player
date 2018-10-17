@@ -29,8 +29,8 @@ export default function(playerWrap) {
     adTagUrl = videoContent.dataset.adtagurl;
     //if (!adTagUrl) return;
     adContainer = playerWrap.getElementsByClassName('ad-container')[0];
-    playButton = playerWrap.getElementsByClassName('play')[0];
-    playButton.addEventListener('click', (e)=>{
+    //playButton = playerWrap.getElementsByClassName('play')[0];
+    playerWrap.addEventListener('playButtonClick', (e)=>{
       playAds();
       e.preventDefault()
       playAds = function(){};
@@ -153,14 +153,20 @@ export default function(playerWrap) {
       google.ima.AdEvent.Type.COMPLETE,
       onAdEvent
     );
+    adsManager.addEventListener(
+      google.ima.AdEvent.Type.SKIPPED,
+      onAdEvent
+    );
   }
+
+  // A D   E V E N T   H A N D L E R S
 
   function onAdEvent(adEvent) {
     // Retrieve the ad from the event. Some events (e.g. ALL_ADS_COMPLETED)
     // don't have ad object associated.
     var ad = adEvent.getAd();
     switch (adEvent.type) {
-      case (google.ima.AdEvent.Type.LOADED):
+      case google.ima.AdEvent.Type.LOADED:
       {
         // This is the first event sent for an ad - it is possible to
         // determine whether the ad is a video ad or an overlay.
@@ -168,11 +174,16 @@ export default function(playerWrap) {
           // Position AdDisplayContainer correctly for overlay.
           // Use ad.width and ad.height.
           videoContent.play();
+          playerWrap.classList.add('ad-nonlinear');
+        }
+        else {
+          playerWrap.classList.add('ad-linear');
         }
       }
       break;
       case google.ima.AdEvent.Type.STARTED:
       {
+        playerWrap.classList.add('ad-playing');
         // This event indicates the ad has started - the video player
         // can adjust the UI, for example display a pause button and
         // remaining time.
@@ -183,6 +194,7 @@ export default function(playerWrap) {
             //currentTime = videoContent.currentTime;
             var remainingTime = adsManager.getRemainingTime();
           }, 300); // every 300ms
+          // made in S...
         }
         if (!ad.isLinear()) {
           if (videoContent.shaka) {
@@ -198,7 +210,9 @@ export default function(playerWrap) {
       }
       break;
       case google.ima.AdEvent.Type.COMPLETE:
+      case google.ima.AdEvent.Type.SKIPPED:
       {
+        playerWrap.classList.remove('ad-playing');
         // This event indicates the ad has finished - the video player
         // can perform appropriate UI actions, such as removing the timer for
         // remaining time detection.

@@ -20,12 +20,15 @@
     }
   }
 
-.player-wrap {
-  position: relative;
-
-  &.ad-playing:not(.ad-nonlinear) .control-bar {
+  &.ad-playing:not(.ad-nonlinear) .player-wrap {
     z-index: 0;
   }
+
+
+
+
+.player-wrap {
+  position: relative;
   &.video-playing .control-bar {
     .play-button {
       display: none!important;
@@ -34,7 +37,6 @@
       display: inline-block!important;
     }
   }
-
   .control-bar {
     $buttonSize: 50px;
     z-index: 30;

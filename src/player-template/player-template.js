@@ -7,7 +7,9 @@ import playSvg from './img/play-button.svg'
 import pauseSvg from './img/pause-button.svg'
 
 
-export default function(videoDom) {
+export default function(videoBundler) {
+
+  let videoDom = videoBundler.getElementsByTagName('video')[0];
 
   videoDom.className = videoDom.className + " video-in-template";
   videoDom.controls = false;

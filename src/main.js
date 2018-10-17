@@ -24,7 +24,7 @@ if (!Array.from) {
 
 const resolveVideo = (data) => {
   let videoDom = data.videoBundler.getElementsByTagName('video')[0];
-  const playerWrap = playerTemplate(videoDom);
+  const playerWrap = playerTemplate(data.videoBundler);
   if (Hls.isSupported()) { //MediaSource API
     hls_app(videoDom, data.hlsManifestUrl);
   }

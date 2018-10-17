@@ -19,31 +19,31 @@ export default function(videoDom) {
   const wrap = document.createElement("div");
   wrap.className = 'player-wrap';
   const template = `
-  <img src=${loadingGif} class='loading-ico'></img>
-  <div class='ad-video-bundler'>
-    <div class='ad-container'></div>
-  </div>
-  <div class='control-bar'>
 
-    <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
-    <a class="video-controls__fullscreen" href="#">Fullscreen</a>
-    <span class="languages"></span>
-    <span class="resolutions"></span>
-    <div class="control-bar--bottom">
-      <a class='pause-button' href="#">${pauseSvg}</a>
-      <a class='play-button' href="#">${playSvg}</a>
-      <span class="time-watch"></span>
+    <img src=${loadingGif} class='loading-ico'></img>
+
+    <div class='control-bar'>
+      <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
+      <a class="video-controls__fullscreen" href="#">Fullscreen</a>
+      <span class="languages"></span>
+      <span class="resolutions"></span>
+      <div class="control-bar--bottom">
+        <a class='pause-button' href="#">${pauseSvg}</a>
+        <a class='play-button' href="#">${playSvg}</a>
+        <span class="time-watch"></span>
+      </div>
     </div>
-  </div>
+
   `;
   // template --> wrap
   wrap.insertAdjacentHTML("afterbegin", template);
+  // SeekBar
+  wrap.getElementsByClassName('time-watch')[0].insertAdjacentElement("beforebegin", seek(videoDom));
   // wrap beside <video>
   videoDom.insertAdjacentElement("afterend", wrap);
   // <video> --> wrap
-  wrap.getElementsByClassName('ad-video-bundler')[0].appendChild(videoDom);
-  // SeekBar
-  wrap.getElementsByClassName('time-watch')[0].insertAdjacentElement("beforebegin", seek(videoDom));
+  wrap.appendChild(videoDom);
+
 
   let printTime = function(current = videoDom.currentTime) {
     let el = wrap.getElementsByClassName('time-watch')[0];
@@ -71,7 +71,7 @@ export default function(videoDom) {
       videoDom.play();
     }
     else {
-      trigger(wrap, 'playButtonClick');
+      trigger(videoDom, 'playButtonClick');
       adInitialized = true;
     }
   });

@@ -23,38 +23,34 @@ if (!Array.from) {
 }
 
 const resolveVideo = (data) => {
-
-  //console.log(data.type, data.flavors)
-
-  const playerWrap = playerTemplate(data.videoDom);
-
+  let videoDom = data.videoBundler.getElementsByTagName('video')[0];
+  const playerWrap = playerTemplate(videoDom);
   if (Hls.isSupported()) { //MediaSource API
-    hls_app(data.videoDom, data.hlsManifestUrl);
+    hls_app(videoDom, data.hlsManifestUrl);
   }
-  else if (data.videoDom.canPlayType('application/vnd.apple.mpegurl')) { //built-in HLS
-    data.videoDom.src = data.hlsManifestUrl
+  else if (videoDom.canPlayType('application/vnd.apple.mpegurl')) { //built-in HLS
+    videoDom.src = data.hlsManifestUrl
   }
   else {
     data.flavors.forEach(function(flavor){
-      data.videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="'+flavor.type+'">');
+      videoDom.insertAdjacentHTML( 'beforeend', '<source src="'+flavor.url+'" type="'+flavor.type+'">');
     });
   }
-
-  imaAd(playerWrap);
+  imaAd(data.videoBundler);
 }
 
 
 // ITERATE PAGE VIDEOS
-let htmlVideos = document.getElementsByTagName('video');
-
-[...htmlVideos].forEach(function(video, index){
+let videoBundlers = document.getElementsByClassName('video-bundler');
+[...videoBundlers].forEach(function(videoBundler, index) {
+  let video = videoBundler.getElementsByTagName('video')[0];
   switch (video.dataset.vtype) {
     case "kaltura" :
-      getKalturaData(video.dataset.vid, video, video.dataset.prefs).then(resolveVideo);
+      getKalturaData(video.dataset.vid, videoBundler, video.dataset.prefs).then(resolveVideo);
       break;
     case "jwp" :
       //resolveJWP(video);
-      getJWPData(video.dataset.vid, video).then(resolveVideo);
+      getJWPData(video.dataset.vid, videoBundler).then(resolveVideo);
       break;
   }
 });

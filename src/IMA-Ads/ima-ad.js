@@ -30,7 +30,7 @@ export default function(playerWrap) {
     //if (!adTagUrl) return;
     adContainer = playerWrap.getElementsByClassName('ad-container')[0];
     //playButton = playerWrap.getElementsByClassName('play')[0];
-    playerWrap.addEventListener('playButtonClick', (e)=>{
+    videoContent.addEventListener('playButtonClick', (e)=>{
       playAds();
       e.preventDefault()
       playAds = function(){};

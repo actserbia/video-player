@@ -1,4 +1,4 @@
-export function getKalturaData(entryId, videoDom, prefs="{}"){
+export function getKalturaData(entryId, videoBundler, prefs="{}"){
 
   return new Promise(function(resolve, reject){
 
@@ -26,7 +26,7 @@ export function getKalturaData(entryId, videoDom, prefs="{}"){
       //var hlsManifestUrl = "https://cdnapisec.kaltura.com/p/"+ partnerId +"/sp/"+ partnerId +"00/playManifest/entryId/"+ entryId +"/flavorIds/" + [...flaworIds] + "/format/applehttp/protocol/http/a.m3u8?referrer=aHR0cHM6Ly9jb3JwLmthbHR1cmEuY29t&playSessionId=ae1b214e-52b4-830d-8b23-01c73970115b&clientTag=html5:v2.69.5&uiConfId=36784651";
       var hlsManifestUrl = "https://cdnapisec.kaltura.com/p/"+ partnerId +"/sp/"+ partnerId +"00/playManifest/entryId/"+ entryId +"/flavorIds/" + [...flaworIds] + "/format/applehttp/protocol/https/a.m3u8";
       //var hlsManifestUrl = "https://cdnapisec.kaltura.com/p/"+ partnerId +"/sp/"+ partnerId +"00/playManifest/entryId/"+ entryId +"/flavorIds/" + [...flaworIds] + "/format/applehttp/protocol/https/a.m3u8?referrer=aHR0cHM6Ly9jb3JwLmthbHR1cmEuY29t&playSessionId=ae1b214e-52b4-830d-8b23-01c73970115b&clientTag=html5:v2.69.5&uiConfId=36784651";
-      resolve({type: "kaltura", flavors: flavors, videoDom: videoDom, hlsManifestUrl: hlsManifestUrl});
+      resolve({type: "kaltura", flavors: flavors, videoBundler: videoBundler, hlsManifestUrl: hlsManifestUrl});
     };
 
     //https://searchcode.com/codesearch/view/44048077/

@@ -1,4 +1,4 @@
-export function getJWPData(entryId, videoDom){
+export function getJWPData(entryId, videoBundler){
 
   return new Promise(function(resolve, reject){
 
@@ -13,7 +13,7 @@ export function getJWPData(entryId, videoDom){
 
               var resolvedData =  {
                 type: "jwp",
-                videoDom: videoDom,
+                videoBundler: videoBundler,
                 flavors:[]
               }
 

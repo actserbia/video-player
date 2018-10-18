@@ -30,54 +30,11 @@ html, body {
     display: table;
     content: " ";
     clear: both; }
-.seekbar__container {
-  position: relative;
-  z-index: 99; }
-  .seekbar__container:hover {
-    cursor: pointer; }
-    .seekbar__container:hover .seekbar__line, .seekbar__container:hover .seekbar__progress, .seekbar__container:hover .seekbar__buffer {
-      height: 5px;
-      top: 6px; }
-    .seekbar__container:hover .seekbar__handle {
-      transform: scale(1);
-      top: 2px; }
-
-.seekbar__line, .seekbar__progress, .seekbar__buffer {
-  width: 100%;
-  position: absolute;
-  background: #9e9e9e;
-  height: 3px;
-  top: 8px;
-  z-index: 0; }
-
-.seekbar__handle {
-  width: 13px;
-  height: 13px;
-  z-index: 5;
-  border-radius: 50%;
-  position: absolute;
-  left: 0;
-  margin-left: -6.5px;
-  top: 2px;
-  background: #dfdfdf;
-  transition: all 150ms;
-  transform: scale(0); }
-
-.seekbar__progress {
-  background: #dfdfdf;
-  width: 0%;
-  z-index: 4;
-  position: absolute;
-  left: 0; }
-
-.seekbar__buffer {
-  background: #dcdcdc;
-  width: 0%;
-  z-index: 3;
-  left: 0;
-  position: absolute; }
 .video-bundler {
   position: relative; }
+  .video-bundler .video-placeholder {
+    width: 100%;
+    height: auto; }
   .video-bundler .ad-container {
     position: absolute;
     width: 100%;
@@ -95,7 +52,11 @@ html, body {
   .video-bundler.ad-playing:not(.ad-nonlinear) .player-wrap {
     z-index: 0; }
   .video-bundler .player-wrap {
-    position: relative; }
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; }
     .video-bundler .player-wrap.video-playing .control-bar .play-button {
       display: none !important; }
     .video-bundler .player-wrap.video-playing .control-bar .pause-button {
@@ -170,3 +131,52 @@ html, body {
       left: 50%;
       top: 42%;
       transform: translateX(-50%) translateY(-50%); }
+    .video-bundler .player-wrap .video-player {
+      width: 100%;
+      height: 100% !important; }
+.seekbar__container {
+  position: relative;
+  z-index: 99; }
+  .seekbar__container:hover {
+    cursor: pointer; }
+    .seekbar__container:hover .seekbar__line, .seekbar__container:hover .seekbar__progress, .seekbar__container:hover .seekbar__buffer {
+      height: 5px;
+      top: 6px; }
+    .seekbar__container:hover .seekbar__handle {
+      transform: scale(1);
+      top: 2px; }
+
+.seekbar__line, .seekbar__progress, .seekbar__buffer {
+  width: 100%;
+  position: absolute;
+  background: #9e9e9e;
+  height: 3px;
+  top: 8px;
+  z-index: 0; }
+
+.seekbar__handle {
+  width: 13px;
+  height: 13px;
+  z-index: 5;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  margin-left: -6.5px;
+  top: 2px;
+  background: #dfdfdf;
+  transition: all 150ms;
+  transform: scale(0); }
+
+.seekbar__progress {
+  background: #dfdfdf;
+  width: 0%;
+  z-index: 4;
+  position: absolute;
+  left: 0; }
+
+.seekbar__buffer {
+  background: #dcdcdc;
+  width: 0%;
+  z-index: 3;
+  left: 0;
+  position: absolute; }

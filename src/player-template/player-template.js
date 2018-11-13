@@ -23,6 +23,7 @@ export default function(videoBundler) {
   const template = `
 
     <img src=${loadingGif} class='loading-ico'></img>
+    <a class='play-big' href="#">${playSvg}</a>
 
     <div class='control-bar'>
       <input type="range" / class='video-controls__volumebar' min='0' max='1' step='0.1' value='1'>
@@ -65,10 +66,9 @@ export default function(videoBundler) {
 
   videoDom.loading_ico = wrap.getElementsByClassName('loading-ico')[0];
 
-
+  // Handling the PLAY
   var adInitialized = false;
-  wrap.getElementsByClassName('play-button')[0].addEventListener('click', function(ev){
-    ev.preventDefault();
+  let playHandler = function() {
     if(adInitialized) {
       videoDom.play();
     }
@@ -76,11 +76,24 @@ export default function(videoBundler) {
       trigger(videoDom, 'playButtonClick');
       adInitialized = true;
     }
+  }
+  wrap.getElementsByClassName('play-button')[0].addEventListener('click', function(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    playHandler();
+  });
+  wrap.getElementsByClassName('control-bar')[0].addEventListener('click', function(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    playHandler();
   });
 
 
+
+  // Event listener for the PAUSE
   wrap.getElementsByClassName('pause-button')[0].addEventListener('click', function(ev){
     ev.preventDefault();
+    ev.stopPropagation();
     videoDom.pause();
   });
 
@@ -132,6 +145,8 @@ export default function(videoBundler) {
 
   // Event listener for the full-screen button
   fullScreenButton.addEventListener("click", function() {
+    ev.preventDefault();
+    ev.stopPropagation();
     if (videoDom.requestFullscreen) {
       videoDom.requestFullscreen();
     } else if (videoDom.mozRequestFullScreen) {

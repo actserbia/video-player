@@ -57,6 +57,8 @@ html, body {
     left: 0;
     bottom: 0;
     right: 0; }
+    .video-bundler .player-wrap.video-playing .play-big {
+      opacity: 0; }
     .video-bundler .player-wrap.video-playing .control-bar .play-button {
       display: none !important; }
     .video-bundler .player-wrap.video-playing .control-bar .pause-button {
@@ -123,6 +125,15 @@ html, body {
         display: none; }
     .video-bundler .player-wrap:hover .control-bar {
       opacity: 1; }
+    .video-bundler .player-wrap .play-big {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      transition: opacity .4s; }
     .video-bundler .player-wrap .loading-ico {
       width: 30px;
       position: absolute;

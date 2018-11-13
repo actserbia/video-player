@@ -35,12 +35,17 @@
     left: 0;
     bottom: 0;
     right: 0;
-    &.video-playing .control-bar {
-      .play-button {
-        display: none!important;
+    &.video-playing {
+      .play-big {
+        opacity: 0;
       }
-      .pause-button {
-        display: inline-block!important;
+      .control-bar {
+        .play-button {
+          display: none!important;
+        }
+        .pause-button {
+          display: inline-block!important;
+        }
       }
     }
     .control-bar {
@@ -117,6 +122,16 @@
     }
     &:hover .control-bar {
       opacity: 1;
+    }
+    .play-big {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      transition: opacity .4s;
     }
     .loading-ico {
       width: 30px;
